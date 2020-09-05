@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class NVSystemObject {
+
     private final INVSystem system;
     private final Logger logger;
 
@@ -26,10 +27,10 @@ public abstract class NVSystemObject {
 
     @Subscribe
     public final void onDestroyHandler(SystemDestroyEvent e){
-        onDestroy();
+        onDestroy(e);
         system.getEventBus().unregister(this);
     }
 
-    protected void onDestroy(){
+    protected void onDestroy(SystemDestroyEvent e){
     }
 }

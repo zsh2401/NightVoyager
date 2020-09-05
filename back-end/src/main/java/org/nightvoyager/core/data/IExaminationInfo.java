@@ -1,36 +1,30 @@
 package org.nightvoyager.core.data;
 
-import org.nightvoyager.core.INVSystem;
-import org.nightvoyager.core.data.qa.ITestPaperMasterCopy;
-import org.nightvoyager.core.state.ExaminationState;
-import org.nightvoyager.core.state.IExaminationRoom;
-import org.nightvoyager.core.state.ITestPaper;
-import org.nightvoyager.core.util.metadata.ISupportMetadata;
+import org.nightvoyager.core.data.qa.ITestPaperInfo;
+import org.nightvoyager.core.data.qa.IUnique;
+import org.nightvoyager.core.data.roler.IPersonInfo;
 
 /**
  * Readonly Examination info.
  * Should be created by some type of builder with data stored in database or file.
  */
-public interface IExaminationInfo extends ISupportMetadata {
+public interface IExaminationInfo extends IUnique {
 
-    INVSystem getSystem();
-
-    ICandidateInfo[] getRelativeCandidates();
+    IPersonInfo[] getRelativeCandidates();
 
     long getStartTime();
+
+    long setStartTime(long startTime);
+
     long getTimeLimit();
 
-    default String getDescription(){
-        return this.getMetadata().description();
-    }
+    long setTimeLimit(long timeLimit);
 
-    String KEY_NOTICE = "__exam_notice__";
-    default String getNotice(){
-        return this.getMetadata().getValue(KEY_NOTICE,"");
-    }
+    String getDescription();
+    void setDescription(String description);
 
+    String getNotice();
+    void setNotice(String notice);
 
-    ITestPaperMasterCopy[] getTestPapers();
-
-    IExaminationRoom getRoom() throws IllegalStateException;
+    ITestPaperInfo[] getTestPapers();
 }

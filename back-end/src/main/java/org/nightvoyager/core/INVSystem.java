@@ -2,9 +2,8 @@ package org.nightvoyager.core;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
-import org.nightvoyager.core.data.registries.ITestPaperMasterCopyRegistry;
-import org.nightvoyager.core.event.ReadStateEvent;
-import org.nightvoyager.core.event.SaveStateEvent;
+import org.nightvoyager.core.data.IDataAccessor;
+import org.nightvoyager.core.data.ITestPaperRegistry;
 import org.nightvoyager.core.event.SystemDestroyEvent;
 import org.nightvoyager.core.ext.IPluginManager;
 import org.nightvoyager.core.state.ICandidatesManager;
@@ -18,7 +17,7 @@ public interface INVSystem {
      * @return
      */
     @NotNull
-    ITestPaperMasterCopyRegistry getTestPaperMCRegistry();
+    ITestPaperRegistry getTestPaperMCRegistry();
 
     /**
      * Get plugin manager related to this system.
@@ -27,6 +26,13 @@ public interface INVSystem {
      */
     @NotNull
     IPluginManager getPluginManager();
+
+    /**
+     * Get data storage manager.
+     * @return
+     */
+    @NotNull
+    IDataAccessor getDataAccessor();
 
     /**
      * Get examination scheduler related to this system.

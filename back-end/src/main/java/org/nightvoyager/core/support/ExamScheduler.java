@@ -2,7 +2,7 @@ package org.nightvoyager.core.support;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.nightvoyager.core.INVSystem;
-import org.nightvoyager.core.data.qa.ITestPaperMasterCopy;
+import org.nightvoyager.core.data.qa.ITestPaperInfo;
 import org.nightvoyager.core.event.ReadStateEvent;
 import org.nightvoyager.core.event.SaveStateEvent;
 import org.nightvoyager.core.state.IExamScheduler;
@@ -47,7 +47,7 @@ public class ExamScheduler implements IExamScheduler {
     }
 
     @Subscribe
-    public synchronized void onTick(TickEvent e) {
+    public void onTick(TickEvent e) {
 
     }
 
@@ -58,38 +58,16 @@ public class ExamScheduler implements IExamScheduler {
 
     private static final IExaminationInfo[] _covert = new IExaminationInfo[0];
 
+
     @Override
-    public IExaminationInfo[] getComingExams() {
-        return (IExaminationInfo[]) examinations
-                .stream()
-                .filter(
-                        it -> it.getStartTime() > System.currentTimeMillis()).toArray();
+    public IExaminationInfo[] getExams(ExamState state) {
+        return new IExaminationInfo[0];
+//        return this.system.getDataAccessor().getExaminations();
     }
 
     @Override
-    public IExaminationInfo[] getPastedExams() {
-        return (IExaminationInfo[]) examinations
-                .stream()
-                .filter(
-                        it -> {
-                            boolean isStarted = it.getStartTime() < System.currentTimeMillis();
-                            boolean isUnlimited = it.getTimeLimit() == ITestPaperMasterCopy.UNLIMITED;
-                            boolean inDur = it.getStartTime() + it.getTimeLimit() > System.currentTimeMillis();
-                            return isStarted && !(isUnlimited || inDur);
-                        }).toArray();
-    }
-
-    @Override
-    public IExaminationInfo[] getExaminingExams() {
-        return (IExaminationInfo[]) examinations
-                .stream()
-                .filter(
-                        it -> {
-                            boolean isStarted = it.getStartTime() < System.currentTimeMillis();
-                            boolean isUnlimited = it.getTimeLimit() == ITestPaperMasterCopy.UNLIMITED;
-                            boolean inDur = it.getStartTime() + it.getTimeLimit() > System.currentTimeMillis();
-                            return isStarted && (isUnlimited || inDur);
-                        }).toArray();
+    public IExaminationInfo[] getExams() {
+        return this.system.getDataAccessor().getExaminations();
     }
 
     @Override

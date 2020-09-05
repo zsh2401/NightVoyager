@@ -17,9 +17,8 @@ public class PluginManager extends NVSystemObject implements IPluginManager {
     }
 
     @Override
-    public synchronized IPlugin load(Class<? extends IPlugin> pluginClass) {
+    public IPlugin load(Class<? extends IPlugin> pluginClass) {
         try {
-
             //Raise event.
             PluginLoadingEvent e = new PluginLoadingEvent(this, getNVSystem(), pluginClass);
             getNVSystem().getEventBus().post(e);
@@ -33,7 +32,9 @@ public class PluginManager extends NVSystemObject implements IPluginManager {
             plugin.onLoad(new PluginLoadingArgs(getNVSystem()));
             enablePlugin(plugin);
 
-            plugins.add(plugin);
+            synchronized (plugins){
+                plugins.add(plugin);
+            }
 
             return plugin;
         } catch (Exception e) {

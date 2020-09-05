@@ -2,25 +2,22 @@ package org.nightvoyager.core.state;
 
 import org.nightvoyager.core.data.IExaminationInfo;
 
-public interface IExamScheduler {
+public interface IExamScheduler extends IEventDriven {
+
+    enum ExamState{
+        COMING,
+        PASTED,
+        EXAMINING,
+        ALL
+    }
+
+    IExaminationInfo[] getExams(ExamState state);
 
     /**
-     * @return Those exams will start in the future.
+     * Get all exams.
+     * @return
      */
-    IExaminationInfo[] getComingExams();
-
-
-    /**
-     * @return Those exams is past or abandoned.
-     */
-    IExaminationInfo[] getPastedExams();
-
-
-    /**
-     * @return Those exams is in progress
-     */
-    IExaminationInfo[] getExaminingExams();
-
+    IExaminationInfo[] getExams();
 
     /**
      * Register new examination to scheduler.

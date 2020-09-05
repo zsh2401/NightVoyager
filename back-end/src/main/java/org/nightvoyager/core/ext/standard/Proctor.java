@@ -1,12 +1,12 @@
 package org.nightvoyager.core.ext.standard;
 
 import org.greenrobot.eventbus.Subscribe;
-import org.nightvoyager.core.data.ICandidateInfo;
+import org.nightvoyager.core.data.IExaminationInfo;
+import org.nightvoyager.core.data.roler.IPersonInfo;
 import org.nightvoyager.core.ext.NVPlugin;
 import org.nightvoyager.core.ext.Plugin;
 import org.nightvoyager.core.state.CandidateEnteringRoomEvent;
 import org.nightvoyager.core.state.CandidateLeavingRoomEvent;
-import org.nightvoyager.core.data.IExaminationInfo;
 import org.nightvoyager.core.state.IExaminationRoom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +26,10 @@ public class Proctor extends Plugin {
         try {
             final IExaminationRoom room = e.getRoom();
             final IExaminationInfo examInfo = room.getInfo();
-            final ICandidateInfo candidateInfo = e.getCandidate();
+            final IPersonInfo pInfo = e.getCandidate();
 
             boolean isRelated = false;
-            for (ICandidateInfo currentCandidate : examInfo.getRelativeCandidates()) {
+            for (IPersonInfo currentCandidate : examInfo.getRelativeCandidates()) {
                 if (Objects.equals(currentCandidate.getId(),currentCandidate.getId())) {
                     isRelated = true;
                     break;

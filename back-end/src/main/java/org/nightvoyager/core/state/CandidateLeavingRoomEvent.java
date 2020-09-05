@@ -1,7 +1,7 @@
 package org.nightvoyager.core.state;
 
 import org.nightvoyager.core.data.IExaminationInfo;
-import org.nightvoyager.core.data.ICandidateInfo;
+import org.nightvoyager.core.data.rolers.ICandidateInfo;
 import org.nightvoyager.core.event.CancelableNVSystemEvent;
 
 public class CandidateLeavingRoomEvent extends CancelableNVSystemEvent {

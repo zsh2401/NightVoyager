@@ -1,7 +1,8 @@
 package org.nightvoyager.core.state;
 
 import org.nightvoyager.core.data.IExaminationInfo;
-import org.nightvoyager.core.data.ICandidateInfo;
+import org.nightvoyager.core.data.roler.IPersonInfo;
+import org.nightvoyager.core.data.rolers.ICandidateInfo;
 
 public interface IExaminationRoom {
     IExaminationInfo getInfo();
@@ -11,14 +12,14 @@ public interface IExaminationRoom {
      *
      * @return
      */
-    ICandidateInfo[] getInRoomCandidates();
+    IPersonInfo[] getInRoomCandidates();
 
     /**
      * Get candidate who is once enter this exam room.(Now still in or not.)
      *
      * @return
      */
-    ICandidateInfo[] getHaveTakenTheExamCandidates();
+    IPersonInfo[] getHaveTakenTheExamCandidates();
 
     /**
      * Get handed in test papers.
@@ -34,7 +35,7 @@ public interface IExaminationRoom {
      * @exception IllegalStateException The candidate could not enter this room.
      * @exception IllegalAccessException The candidate has no permission.
      */
-    void enter(ICandidateInfo candidate) throws IllegalStateException,IllegalAccessException;
+    void enter(IPersonInfo candidate) throws IllegalStateException,IllegalAccessException;
 
     /**
      * Candidate leave this room.
@@ -43,5 +44,5 @@ public interface IExaminationRoom {
      * @exception IllegalStateException The candidate could not leave this room.
      * @exception IllegalAccessException The candidate has no permission.
      */
-    void leave(ICandidateInfo candidate);
+    void leave(IPersonInfo candidate);
 }

@@ -1,27 +1,26 @@
 package org.nightvoyager.core.support;
 
-import org.nightvoyager.core.data.qa.ITestPaperMasterCopy;
-import org.nightvoyager.core.data.registries.ITestPaperMasterCopyRegistry;
+import org.nightvoyager.core.data.qa.ITestPaperInfo;
+import org.nightvoyager.core.data.ITestPaperRegistry;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-public class TestPaperMCRegistry implements ITestPaperMasterCopyRegistry {
+public class TestPaperMCRegistry implements ITestPaperRegistry {
 
     @Override
-    public ITestPaperMasterCopy[] getAllTestPaper() {
-        return testPaperMasterCopies.toArray(new ITestPaperMasterCopy[0]);
+    public ITestPaperInfo[] getAllTestPaper() {
+        return testPaperMasterCopies.toArray(new ITestPaperInfo[0]);
     }
-    final List<ITestPaperMasterCopy> testPaperMasterCopies = new ArrayList<>();
+    final List<ITestPaperInfo> testPaperMasterCopies = new ArrayList<>();
 
     @Override
-    public synchronized void register(ITestPaperMasterCopy t) {
+    public synchronized void register(ITestPaperInfo t) {
         testPaperMasterCopies.add(t);
     }
 
     @Override
-    public synchronized void unregister(ITestPaperMasterCopy t) {
+    public synchronized void unregister(ITestPaperInfo t) {
         testPaperMasterCopies.remove(t);
     }
 }
