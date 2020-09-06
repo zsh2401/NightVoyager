@@ -1,8 +1,8 @@
-package org.nightvoyager.core.data.qa;
+package org.nightvoyager.core.data;
 
 import org.jetbrains.annotations.NotNull;
 
 public interface IUnique {
     @NotNull
-    String getId();
+    long getId();
 }

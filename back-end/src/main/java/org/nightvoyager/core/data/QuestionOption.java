@@ -1,4 +1,4 @@
-package org.nightvoyager.core.data.qa;
+package org.nightvoyager.core.data;
 
 public class QuestionOption {
     public static final long DEFAULT = 0b01011;

@@ -1,17 +1,19 @@
 package org.nightvoyager.core.state;
 
+import org.joda.time.DateTime;
+import org.joda.time.Instant;
 import org.nightvoyager.core.data.IExaminationInfo;
 import org.nightvoyager.core.event.NVSystemEvent;
 
 public class ExamEndEvent extends NVSystemEvent {
-    private final IExaminationInfo room;
+    private final IExaminationRoom room;
 
-    public ExamEndEvent(IExaminationInfo room) {
+    public ExamEndEvent(IExaminationRoom room) {
         super(room,room.getSystem());
         this.room = room;
     }
 
-    public IExaminationInfo getRoom() {
+    public IExaminationRoom getRoom() {
         return room;
     }
 }

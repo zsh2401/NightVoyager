@@ -1,7 +1,5 @@
 package org.nightvoyager.core.data;
 
-import org.nightvoyager.core.data.qa.ITestPaperInfo;
-import org.nightvoyager.core.data.qa.IUnique;
 import org.nightvoyager.core.data.roler.IPersonInfo;
 
 /**
@@ -26,5 +24,5 @@ public interface IExaminationInfo extends IUnique {
     String getNotice();
     void setNotice(String notice);
 
-    ITestPaperInfo[] getTestPapers();
+    ITestPaperMasterCopy[] getTestPapers();
 }

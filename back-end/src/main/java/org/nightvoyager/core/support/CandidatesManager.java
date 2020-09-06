@@ -7,12 +7,14 @@ import org.nightvoyager.core.event.ReadStateEvent;
 import org.nightvoyager.core.event.SaveStateEvent;
 import org.nightvoyager.core.state.ICandidatesManager;
 
+import java.util.List;
+
 public class CandidatesManager extends NVSystemObject implements ICandidatesManager {
     public CandidatesManager(INVSystem system) {
         super(system);
     }
 
-    private IPersonInfo[] cache;
+    private List<? extends IPersonInfo> cache;
 
     @Subscribe
     public void onSaveState(SaveStateEvent e) {
@@ -29,7 +31,7 @@ public class CandidatesManager extends NVSystemObject implements ICandidatesMana
     }
 
     @Override
-    public IPersonInfo[] getCandidates() {
+    public List<? extends IPersonInfo> getCandidates() {
         if(cache == null){
             readState();
         }

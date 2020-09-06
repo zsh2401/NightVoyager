@@ -1,4 +1,4 @@
-package org.nightvoyager.core.data.qa;
+package org.nightvoyager.core.data;
 
 public enum QuestionDescriptionType {
     Markdown,

@@ -2,7 +2,6 @@ package org.nightvoyager.core.support;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.nightvoyager.core.INVSystem;
-import org.nightvoyager.core.data.qa.ITestPaperInfo;
 import org.nightvoyager.core.event.ReadStateEvent;
 import org.nightvoyager.core.event.SaveStateEvent;
 import org.nightvoyager.core.state.IExamScheduler;
@@ -60,13 +59,12 @@ public class ExamScheduler implements IExamScheduler {
 
 
     @Override
-    public IExaminationInfo[] getExams(ExamState state) {
-        return new IExaminationInfo[0];
-//        return this.system.getDataAccessor().getExaminations();
+    public List<? extends IExaminationInfo> getExams(ExamState state) {
+        return this.system.getDataAccessor().getExaminations();
     }
 
     @Override
-    public IExaminationInfo[] getExams() {
+    public List<? extends IExaminationInfo> getExams() {
         return this.system.getDataAccessor().getExaminations();
     }
 

@@ -19,6 +19,7 @@ public interface IPluginManager {
     @NotNull
     IPlugin[] getLoadedPlugins();
 
+
     /**
      * Unload the plugin from this system.
      * @param plugin

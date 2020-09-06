@@ -1,0 +1,32 @@
+
+#mb:
+#  config: mb/mb-config.xml
+spring:
+  datasource:
+    username:
+    password:
+    url: jdbc:sqlite:test.db
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+#    database: MySQL
+    database-platform: org.hibernate.dialect.SQLiteDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    static-path-pattern: /**
+  freemarker:
+    allow-request-override: false
+    cache: true
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
+    suffix: .ftl
+#    template-loader-path: classpath:/web/views/  #模板保存的路径
+server:
+  port: 24020

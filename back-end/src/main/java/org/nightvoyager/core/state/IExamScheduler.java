@@ -1,6 +1,9 @@
 package org.nightvoyager.core.state;
 
 import org.nightvoyager.core.data.IExaminationInfo;
+import org.nightvoyager.core.util.IEventDriven;
+
+import java.util.List;
 
 public interface IExamScheduler extends IEventDriven {
 
@@ -11,13 +14,13 @@ public interface IExamScheduler extends IEventDriven {
         ALL
     }
 
-    IExaminationInfo[] getExams(ExamState state);
+    List<? extends  IExaminationInfo> getExams(ExamState state);
 
     /**
      * Get all exams.
      * @return
      */
-    IExaminationInfo[] getExams();
+    List<? extends IExaminationInfo> getExams();
 
     /**
      * Register new examination to scheduler.

@@ -19,6 +19,7 @@ public class PluginManager extends NVSystemObject implements IPluginManager {
     @Override
     public IPlugin load(Class<? extends IPlugin> pluginClass) {
         try {
+
             //Raise event.
             PluginLoadingEvent e = new PluginLoadingEvent(this, getNVSystem(), pluginClass);
             getNVSystem().getEventBus().post(e);
@@ -30,15 +31,15 @@ public class PluginManager extends NVSystemObject implements IPluginManager {
             IPlugin plugin = createPluginInstance(pluginClass);
 
             plugin.onLoad(new PluginLoadingArgs(getNVSystem()));
-            enablePlugin(plugin);
+            plugin.onEnable(new PluginEnablingArgs());
 
-            synchronized (plugins){
+            synchronized (plugins) {
                 plugins.add(plugin);
             }
 
             return plugin;
         } catch (Exception e) {
-            getLogger().error("Could not load plugin", e);
+            getLogger().error("Could not load plugin: " + pluginClass.getName(), e);
         }
         return null;
     }
@@ -49,10 +50,11 @@ public class PluginManager extends NVSystemObject implements IPluginManager {
     }
 
 
-    protected void enablePlugin(IPlugin plugin){
-        plugin.onEnable(new PluginEnablingArgs());
+    protected void enablePlugin(IPlugin plugin) {
+
     }
-    protected void disablePlugin(IPlugin plugin){
+
+    protected void disablePlugin(IPlugin plugin) {
         plugin.onDisable(new PluginDisablingArgs());
     }
 
@@ -64,9 +66,9 @@ public class PluginManager extends NVSystemObject implements IPluginManager {
 
 
     @Subscribe
-    public void onDestroy(SystemDestroyEvent e){
-        for (IPlugin plugin:
-             plugins) {
+    public void onDestroy(SystemDestroyEvent e) {
+        for (IPlugin plugin :
+                plugins) {
             plugin.onDisable(new PluginDisablingArgs());
             plugin.onUnload(new PluginUnloadingArgs());
         }
@@ -75,8 +77,18 @@ public class PluginManager extends NVSystemObject implements IPluginManager {
 
     @Override
     public synchronized void unload(IPlugin plugin) {
-        plugin.onDisable(new PluginDisablingArgs());
-        plugin.onUnload(new PluginUnloadingArgs());
-        plugins.remove(plugin);
+        if (plugin == null) return;
+        try {
+            plugin.onDisable(new PluginDisablingArgs());
+            plugin.onUnload(new PluginUnloadingArgs());
+        } catch (Exception e) {
+            getLogger().warn(
+                    "Shame on " +
+                            plugin.getClass().getName() +
+                            ": It's throws exception when unloading progress!", e);
+        }
+        synchronized (plugins) {
+            plugins.remove(plugin);
+        }
     }
 }

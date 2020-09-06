@@ -9,44 +9,48 @@ public final class TickWatcher implements ITickWatcher {
     @org.jetbrains.annotations.NotNull
     private final INVSystem system;
 
-    public TickWatcher(INVSystem system){
+    public TickWatcher(INVSystem system) {
         this.system = system;
         system.getEventBus().register(this);
     }
+
     private boolean isRunning = false;
     private boolean requestStop = false;
     private Thread loopThread;
-    public boolean isRunning()  {
+
+    public boolean isRunning() {
         return isRunning;
     }
-    public synchronized void stop() throws IllegalStateException{
-        if(!isRunning()){
+
+    public synchronized void stop() throws IllegalStateException {
+        if (!isRunning()) {
             throw new IllegalStateException();
         }
         requestStop = true;
     }
-    public synchronized void start() throws IllegalStateException{
-        if(loopThread != null || isRunning == true){
+
+    public synchronized void start() throws IllegalStateException {
+        if (loopThread != null || isRunning == true) {
             throw new IllegalStateException();
         }
-        loopThread = new Thread(null,()->{
+        loopThread = new Thread(null, () -> {
             isRunning = true;
             try {
                 system.loop();
             } catch (NVSystemLoopException e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 isRunning = false;
                 requestStop = false;
                 loopThread = null;
             }
-        },"TickWatcherThread@" + this.system.hashCode() );
+        }, "TickWatcherThread@" + this.system.hashCode());
         loopThread.start();
     }
 
     @Subscribe
-    public void onTick(TickEvent e){
-        if(requestStop){
+    public void onTick(TickEvent e) {
+        if (requestStop) {
             e.setContinuable(false);
         }
     }

@@ -1,11 +1,8 @@
 package org.nightvoyager.core.data;
 
-import org.nightvoyager.core.data.qa.IAnswer;
-import org.nightvoyager.core.data.qa.IQuestion;
-import org.nightvoyager.core.data.qa.ITestPaperInfo;
 import org.nightvoyager.core.data.roler.IPersonInfo;
-import org.nightvoyager.core.data.roler.Permissions;
-import org.nightvoyager.core.state.IEventDriven;
+import org.nightvoyager.core.security.Permissions;
+import org.nightvoyager.core.util.IEventDriven;
 
 import java.util.List;
 import java.util.Properties;
@@ -31,9 +28,9 @@ public interface IDataAccessor extends IEventDriven {
     void addOrUpdate(IPersonInfo... personInfo);
     void remove(IPersonInfo... personInfo);
 
-    List<? extends ITestPaperInfo> getTestPapers();
-    void addOrUpdate(ITestPaperInfo... testPaperMasterCopy);
-    void remove(ITestPaperInfo... testPaperMasterCopy);
+    List<? extends ITestPaperMasterCopy> getTestPapers();
+    void addOrUpdate(ITestPaperMasterCopy... testPaperMasterCopy);
+    void remove(ITestPaperMasterCopy... testPaperMasterCopy);
 
     List<? extends IQuestion> getQuestions();
     void addOrUpdate(IQuestion... questions);

@@ -11,7 +11,7 @@ public class CandidateEnteringRoomEvent extends CancelableNVSystemEvent {
     private final IExaminationRoom room;
 
     public CandidateEnteringRoomEvent(IPersonInfo candidate, IExaminationRoom room) {
-        super(room, null);
+        super(room, room.getSystem());
         this.candidate = candidate;
         this.room = room;
         this.setCancelMode(DEFAULT_CANCEL_MODE);

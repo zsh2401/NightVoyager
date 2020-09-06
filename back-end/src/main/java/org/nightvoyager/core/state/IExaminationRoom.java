@@ -1,32 +1,46 @@
 package org.nightvoyager.core.state;
 
+import org.nightvoyager.core.INVSystem;
 import org.nightvoyager.core.data.IExaminationInfo;
+import org.nightvoyager.core.data.ITestPaperMasterCopy;
 import org.nightvoyager.core.data.roler.IPersonInfo;
-import org.nightvoyager.core.data.rolers.ICandidateInfo;
+
+import java.util.List;
 
 public interface IExaminationRoom {
+
+    /**
+     * Get the examination info about this room
+     * @return
+     */
     IExaminationInfo getInfo();
+
+    /**
+     * Get related system.
+     * @return
+     */
+    INVSystem getSystem();
 
     /**
      * Get candidate who is in room currently.
      *
      * @return
      */
-    IPersonInfo[] getInRoomCandidates();
+    List<IPersonInfo> getInRoomCandidates();
 
     /**
      * Get candidate who is once enter this exam room.(Now still in or not.)
      *
      * @return
      */
-    IPersonInfo[] getHaveTakenTheExamCandidates();
+    List<IPersonInfo> getHaveTakenTheExamCandidates();
 
     /**
      * Get handed in test papers.
      *
      * @return
      */
-    ITestPaper[] getHandIn();
+    List<ITestPaperMasterCopy> getHandIn();
 
     /**
      * Candidate enter this room.

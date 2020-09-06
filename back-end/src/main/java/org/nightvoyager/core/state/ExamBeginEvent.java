@@ -4,14 +4,14 @@ import org.nightvoyager.core.data.IExaminationInfo;
 import org.nightvoyager.core.event.NVSystemEvent;
 
 public class ExamBeginEvent extends NVSystemEvent {
-    private final IExaminationInfo room;
+    private final IExaminationRoom room;
 
-    public ExamBeginEvent(IExaminationInfo room) {
+    public ExamBeginEvent(IExaminationRoom room) {
         super(room, room.getSystem());
         this.room = room;
     }
 
-    public IExaminationInfo getRoom() {
+    public IExaminationRoom getRoom() {
         return room;
     }
 }

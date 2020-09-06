@@ -1,6 +1,7 @@
 package org.nightvoyager.core.support;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBusException;
 import org.jetbrains.annotations.NotNull;
 import org.nightvoyager.core.INVSystem;
 import org.nightvoyager.core.data.IDataAccessor;
@@ -12,13 +13,14 @@ import org.nightvoyager.core.ext.standard.Proctor;
 import org.nightvoyager.core.ext.standard.IOScheduler;
 import org.nightvoyager.core.ext.standard.PerformanceAnalyzer;
 import org.nightvoyager.core.state.*;
+import org.nightvoyager.core.util.IEventDriven;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Standard implementation of Night Voyager System .(Extensible)
  */
-public class NVSystem extends Object implements INVSystem,IEventDriven {
+public class NVSystem extends Object implements INVSystem, IEventDriven {
 
     private static final String SQLITE_DB_FILE_NAME = "./nv.db";
 
@@ -32,13 +34,15 @@ public class NVSystem extends Object implements INVSystem,IEventDriven {
 
 
     public NVSystem() {
+        eventBus = createEventBus();
         testPaperMasterCopyRegistry = createTestPaperMasterCopyRegistry();
         pluginManager = createPluginManager();
-        eventBus = createEventBus();
         candidatesManager = createCandidatesManager();
         logger = createLogger();
         scheduler = createExamScheduler();
-        eventBus.register(this);
+        try{
+            eventBus.register(this);
+        }catch (EventBusException e){}
         dataAccessor = createDataAccessor();
         loadDefaultPlugins(this.getPluginManager());
     }
@@ -138,10 +142,6 @@ public class NVSystem extends Object implements INVSystem,IEventDriven {
 
         start = System.currentTimeMillis();
 
-        if (onPreTick(new PreTickEvent(this))) {
-            return true;
-        }
-
         boolean couldContinue = onTick(new TickEvent(this));
 
         usedTime = System.currentTimeMillis() - start;
@@ -157,14 +157,6 @@ public class NVSystem extends Object implements INVSystem,IEventDriven {
         return couldContinue;
     }
 
-    /**
-     * @return true if next tick is cancelled.
-     */
-    protected boolean onPreTick(PreTickEvent e) {
-        PreTickEvent preEvent = new PreTickEvent(this);
-        getEventBus().post(preEvent);
-        return preEvent.isNextTickCancelled();
-    }
 
     /**
      * Post tick event.
