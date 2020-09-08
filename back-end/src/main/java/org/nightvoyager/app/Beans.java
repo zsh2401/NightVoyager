@@ -1,7 +1,7 @@
 package org.nightvoyager.app;
 
 import org.greenrobot.eventbus.EventBus;
-import org.nightvoyager.app.services.db.DAO;
+import org.nightvoyager.app.service.db.DAO;
 import org.nightvoyager.core.INVSystem;
 import org.nightvoyager.core.data.IDataAccessor;
 import org.nightvoyager.core.support.NVSystem;
@@ -39,7 +39,7 @@ public class Beans {
 
     @Bean
     public EventBus eventBus(){
-        return new EventBus();
+        return EventBus.getDefault();
     }
 
     @Bean(destroyMethod = "stop",initMethod = "start")

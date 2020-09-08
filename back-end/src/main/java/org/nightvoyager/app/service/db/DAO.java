@@ -1,15 +1,15 @@
-package org.nightvoyager.app.services.db;
+package org.nightvoyager.app.service.db;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.nightvoyager.app.entities.PersonInfo;
+import org.nightvoyager.app.entity.PersonInfo;
 import org.nightvoyager.core.data.IDataAccessor;
 import org.nightvoyager.core.data.IExaminationInfo;
 import org.nightvoyager.core.data.IResult;
 import org.nightvoyager.core.data.IAnswer;
 import org.nightvoyager.core.data.IQuestion;
 import org.nightvoyager.core.data.ITestPaperMasterCopy;
-import org.nightvoyager.core.data.roler.IPersonInfo;
+import org.nightvoyager.core.data.IPersonInfo;
 import org.nightvoyager.core.event.SaveStateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,30 +29,31 @@ public class DAO implements IDataAccessor {
     /**
      * Call by spring container.
      */
-    public void initialize(){
+    public void initialize() {
         eventBus.register(this);
     }
 
     /**
      * Call by spring container.
-     * @param eventBus
+     *
      */
-    public void destroy(){
+    public void destroy() {
         eventBus.unregister(this);
         flush();
     }
 
     @Subscribe
-    public void onSaveState(SaveStateEvent e){
+    public void onSaveState(SaveStateEvent e) {
         flush();
     }
 
-    public void flush(){
+    public void flush() {
         personRepo.flush();
     }
-    private List<PersonInfo> covert(IPersonInfo[] persons){
+
+    private List<PersonInfo> covert(IPersonInfo[] persons) {
         return Arrays.stream(persons)
-                .map(it->PersonInfo.valueOf(it))
+                .map(it -> PersonInfo.valueOf(it))
                 .collect(Collectors.toList());
     }
 

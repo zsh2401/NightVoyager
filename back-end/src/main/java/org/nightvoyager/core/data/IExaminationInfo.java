@@ -1,7 +1,5 @@
 package org.nightvoyager.core.data;
 
-import org.nightvoyager.core.data.roler.IPersonInfo;
-
 /**
  * Readonly Examination info.
  * Should be created by some type of builder with data stored in database or file.

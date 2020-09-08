@@ -1,11 +1,11 @@
-package org.nightvoyager.app.services;
+package org.nightvoyager.app.service;
 
-import org.nightvoyager.core.data.roler.IPersonInfo;
+import org.nightvoyager.core.data.IPersonInfo;
 
-public interface ISessionManager {
+public interface ITokenManager {
 
     /**
-     * Create new token for a person.
+     * Create an new token for specified person.
      *
      * @param personInfo
      * @return
@@ -16,12 +16,17 @@ public interface ISessionManager {
      * @param token
      * @return IPersonInfo's implementation instance or null if not found any match.
      */
-    IPersonInfo getPersonInfoByToken(String token);
+    IPersonInfo findPersonByToken(String token);
 
     /**
      * Clear token for a specified person.
      *
      * @param personInfo target person.
      */
-    void clearTokenFor(IPersonInfo personInfo);
+    void clearToken(IPersonInfo personInfo);
+
+    /**
+     * Clear all token.
+     */
+    void clearAllToken();
 }

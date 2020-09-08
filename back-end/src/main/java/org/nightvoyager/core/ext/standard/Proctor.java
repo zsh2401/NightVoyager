@@ -2,7 +2,7 @@ package org.nightvoyager.core.ext.standard;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.nightvoyager.core.data.IExaminationInfo;
-import org.nightvoyager.core.data.roler.IPersonInfo;
+import org.nightvoyager.core.data.IPersonInfo;
 import org.nightvoyager.core.ext.NVPlugin;
 import org.nightvoyager.core.ext.Plugin;
 import org.nightvoyager.core.state.CandidateEnteringRoomEvent;

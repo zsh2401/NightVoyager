@@ -6,20 +6,25 @@ import org.jetbrains.annotations.Nullable;
 public interface IPermissionComponent {
 
     @Nullable
-    IPermissionComponent getPermissionParent();
+    default IPermissionComponent getPermissionParent() {
+        return null;
+    }
 
     @NotNull
     IPermissionSet getSelfPermissionSet();
 
+    default void must(String... permissions) throws MissingPermissionException {
+        PermissionHelper.must(this, permissions);
+    }
+
     default boolean permissionAllowed(@NotNull String permission) {
-        if (getSelfPermissionSet().contains("-" + permission)) {
-            return false;
-        } else if (getSelfPermissionSet().isAllow(permission)) {
+        final IPermissionComponent parent = getPermissionParent();
+        if (getSelfPermissionSet().isAllow(permission)) {
             return true;
-        } else if (getPermissionParent() != null) {
-            return getPermissionParent().permissionAllowed(permission);
+        } else if (parent != null) {
+            return parent.permissionAllowed(permission);
         } else {
-            return getSelfPermissionSet().contains("*");
+            return false;
         }
     }
 }

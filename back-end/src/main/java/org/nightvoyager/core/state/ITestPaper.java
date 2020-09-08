@@ -2,7 +2,7 @@ package org.nightvoyager.core.state;
 
 import org.nightvoyager.core.data.IAnswer;
 import org.nightvoyager.core.data.IQuestion;
-import org.nightvoyager.core.data.roler.IPersonInfo;
+import org.nightvoyager.core.data.IPersonInfo;
 
 import java.util.Map;
 

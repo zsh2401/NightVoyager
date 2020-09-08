@@ -1,6 +1,5 @@
 package org.nightvoyager.core.data;
 
-import org.nightvoyager.core.data.roler.IPersonInfo;
 import org.nightvoyager.core.security.Permissions;
 import org.nightvoyager.core.util.IEventDriven;
 
@@ -22,7 +21,7 @@ public interface IDataAccessor extends IEventDriven {
     default List<? extends IPersonInfo> getCandidates(){
         return getPersons()
                 .stream()
-                .filter(it->it.hasPermission(Permissions.ROLE_CANDIDATE))
+                .filter(it->it.permissionAllowed(Permissions.ROLE_CANDIDATE))
                 .collect(Collectors.toList());
     }
     void addOrUpdate(IPersonInfo... personInfo);

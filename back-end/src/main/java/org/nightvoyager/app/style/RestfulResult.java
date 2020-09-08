@@ -13,6 +13,7 @@ public class RestfulResult<T> {
         this.result = result;
         this.statusMessage = statusMessage;
     }
+
     public RestfulResult(int statusCode,T result){
         this(statusCode,"",result);
     }

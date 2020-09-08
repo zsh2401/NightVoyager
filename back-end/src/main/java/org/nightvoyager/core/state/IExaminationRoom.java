@@ -3,7 +3,7 @@ package org.nightvoyager.core.state;
 import org.nightvoyager.core.INVSystem;
 import org.nightvoyager.core.data.IExaminationInfo;
 import org.nightvoyager.core.data.ITestPaperMasterCopy;
-import org.nightvoyager.core.data.roler.IPersonInfo;
+import org.nightvoyager.core.data.IPersonInfo;
 
 import java.util.List;
 

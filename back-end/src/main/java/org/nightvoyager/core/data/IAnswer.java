@@ -1,7 +1,5 @@
 package org.nightvoyager.core.data;
 
-import org.nightvoyager.core.data.roler.IPersonInfo;
-
 public interface IAnswer extends IUnique {
 
     /**

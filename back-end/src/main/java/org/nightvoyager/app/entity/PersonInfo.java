@@ -1,11 +1,16 @@
-package org.nightvoyager.app.entities;
+package org.nightvoyager.app.entity;
 
 import org.jetbrains.annotations.NotNull;
-import org.nightvoyager.core.data.roler.IPersonInfo;
+import org.jetbrains.annotations.Nullable;
+import org.nightvoyager.core.data.IPersonInfo;
+import org.nightvoyager.core.security.IPermissionComponent;
+import org.nightvoyager.core.security.IPermissionSet;
 import org.nightvoyager.core.security.Permissions;
 
 import javax.naming.OperationNotSupportedException;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "persons")
@@ -22,9 +27,13 @@ public class PersonInfo implements IPersonInfo {
     @Column(nullable = false)
     private String name = "";
 
-    private String[] getPermissionsAsArray(){
+    @Column(nullable = false)
+    private String passwd;
 
+    private String[] getPermissionsAsArray(){
+        return new String[0];
     }
+
     @NotNull
     @Override
     public long getId() {
@@ -42,7 +51,6 @@ public class PersonInfo implements IPersonInfo {
         } catch (OperationNotSupportedException e) {
             e.printStackTrace();
         }
-        this.setPermissions(personInfo.getPermissions());
     }
 
 
@@ -72,9 +80,19 @@ public class PersonInfo implements IPersonInfo {
         this.name = name;
     }
 
-    @Override
-    public String[] getPermissions() {
-        return permissions.split(",");
+    public String getPassword() {
+        return passwd;
     }
 
+    @Nullable
+    @Override
+    public IPermissionComponent getPermissionParent() {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public IPermissionSet getSelfPermissionSet() {
+        return null;
+    }
 }

@@ -2,7 +2,7 @@ package org.nightvoyager.core.support;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.nightvoyager.core.INVSystem;
-import org.nightvoyager.core.data.roler.IPersonInfo;
+import org.nightvoyager.core.data.IPersonInfo;
 import org.nightvoyager.core.event.ReadStateEvent;
 import org.nightvoyager.core.event.SaveStateEvent;
 import org.nightvoyager.core.state.ICandidatesManager;
